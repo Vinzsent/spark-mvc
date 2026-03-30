@@ -7,8 +7,8 @@ class Home extends Controller {
 
     public function index(){
         $data = [
-            'title' => 'Welcome to Spark MVC',
-            'description' => 'A clean, secure, and maintainable PHP MVC architecture built with modern CSS.'
+            'title' => 'SparkMobile',
+            'description' => 'Delivering Car Wash right from your doorstep'
         ];
 
         $this->view('templates/header', $data);
