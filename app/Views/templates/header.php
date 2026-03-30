@@ -14,12 +14,12 @@
 <body>
     <header class="navbar">
         <div class="container">
-            <h1><a href="<?= URLROOT; ?>"><?= SITENAME; ?></a></h1>
+            <h1><a href=""><?= Security::esc($data['title']); ?></a></h1>
             <nav>
                 <ul>
                     <li><a href="<?= URLROOT; ?>/home">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="<?= URLROOT; ?>/features">Features</a></li>
+                    <li><a href="<?= URLROOT; ?>/contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
