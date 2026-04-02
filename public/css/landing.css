@@ -1,0 +1,491 @@
+/* ==========================================================
+   SPARK MOBILE — Landing Page Stylesheet
+   Colors: Navy Blue #1a3a8f | Orange #ff4500
+   Font: Poppins (Google Fonts)
+   ========================================================== */
+
+/* ── Variables ──────────────────────────────────────────── */
+:root {
+  --navy:         #1a3a8f;
+  --navy-dark:    #122d73;
+  --orange:       #ff4500;
+  --orange-hover: #e03d00;
+  --white:        #ffffff;
+  --light-text:   #f0f0f0;
+  --overlay:      rgba(0, 0, 0, 0.48);
+  --font:         'Poppins', sans-serif;
+  --transition:   0.25s ease;
+}
+
+/* ── Reset (scoped to landing page) ────────────────────── */
+.lp-root *,
+.lp-root *::before,
+.lp-root *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.lp-root {
+  font-family: var(--font);
+  color: var(--white);
+}
+
+.lp-root a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.lp-root ul {
+  list-style: none;
+}
+
+/* ── Shared Container ───────────────────────────────────── */
+.lp-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================
+   SCROLL REVEAL ANIMATIONS
+   Elements with [data-animate] start hidden and slide up.
+   The JS Intersection Observer adds .is-visible when they
+   enter the viewport.
+   ========================================================== */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays for grid cards */
+[data-animate][data-delay="100"] { transition-delay: 0.1s; }
+[data-animate][data-delay="200"] { transition-delay: 0.2s; }
+[data-animate][data-delay="300"] { transition-delay: 0.3s; }
+[data-animate][data-delay="400"] { transition-delay: 0.4s; }
+
+/* Respect user's reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
+.lp-navbar {
+  background-color: var(--navy);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.lp-navbar .lp-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Brand / Logo */
+.lp-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: auto;
+  flex-shrink: 0;
+}
+
+.lp-brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.lp-brand span {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.02em;
+}
+
+/* Nav links */
+.lp-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.lp-nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--white);
+  transition: color var(--transition);
+}
+
+.lp-nav a:hover,
+.lp-nav a.active {
+  color: var(--orange);
+}
+
+/* Sign-up button */
+.lp-btn-signup {
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.45rem 1.2rem;
+  border-radius: 50px;
+  white-space: nowrap;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.lp-btn-signup:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================
+   HERO SECTION
+   ========================================================== */
+.lp-hero {
+  position: relative;
+  width: 100%;
+  min-height: 480px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.lp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.lp-hero-content {
+  text-align: center;
+  width: 100%;
+  padding: 3rem 1rem;
+}
+
+.lp-hero-content h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--orange);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.lp-hero-content p {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--light-text);
+  margin-bottom: 1.75rem;
+  font-weight: 400;
+}
+
+.lp-btn-started {
+  display: inline-block;
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.7rem 2.2rem;
+  border-radius: 50px;
+  transition: background-color var(--transition), transform var(--transition),
+              box-shadow var(--transition);
+}
+
+.lp-btn-started:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 69, 0, 0.45);
+}
+
+/* ==========================================================
+   ABOUT SECTION
+   ========================================================== */
+.lp-about {
+  background-color: #ffffff;
+  color: #1a1a2e;
+  padding: 4.5rem 0;
+}
+
+.lp-about-row {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.lp-about-img {
+  flex: 1 1 380px;
+}
+
+.lp-about-img img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  max-height: 400px;
+}
+
+.lp-about-text {
+  flex: 1 1 360px;
+}
+
+.lp-about-text h2 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--orange);
+  margin-bottom: 0.85rem;
+  line-height: 1.2;
+}
+
+.lp-about-text .about-lead {
+  font-size: 0.97rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.lp-about-text .about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lp-about-text .about-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.lp-about-text .about-list i {
+  color: var(--orange);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================================
+   FEATURES SECTION
+   ========================================================== */
+.lp-features {
+  background-color: #ffffff;
+  color: #1a1a2e;
+  padding: 5rem 0;
+}
+
+.lp-section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.lp-section-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.lp-section-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.lp-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+
+.lp-feature-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e8ecf4;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.lp-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(26, 58, 143, 0.1);
+}
+
+.lp-feature-card .fc-icon {
+  font-size: 2.2rem;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+
+.lp-feature-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.6rem;
+}
+
+.lp-feature-card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.lp-footer {
+  background-color: #0f1f5c;
+  color: #ccd4ec;
+  padding: 3.5rem 0 1.5rem;
+}
+
+.lp-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.lp-footer h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.85rem;
+}
+
+.lp-footer p,
+.lp-footer a {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: #ccd4ec;
+}
+
+.lp-footer a:hover {
+  color: var(--orange);
+}
+
+.lp-footer-links ul li {
+  margin-bottom: 0.3rem;
+}
+
+.lp-newsletter-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.lp-newsletter-form input {
+  flex: 1;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.lp-newsletter-form button {
+  background-color: var(--orange);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.lp-newsletter-form button:hover {
+  background-color: var(--orange-hover);
+}
+
+.lp-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #99a8cc;
+}
+
+/* ==========================================================
+   MODAL OVERRIDES
+   ========================================================== */
+.lp-modal-title {
+  color: var(--orange) !important;
+  font-weight: 700;
+}
+
+.lp-modal .btn-primary {
+  background-color: var(--orange);
+  border-color: var(--orange);
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.lp-modal .btn-primary:hover {
+  background-color: var(--orange-hover);
+  border-color: var(--orange-hover);
+}
+
+/* ==========================================================
+   RESPONSIVE — Mobile Nav
+   ========================================================== */
+.lp-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .lp-nav-toggle {
+    display: block;
+  }
+
+  .lp-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--navy-dark);
+    padding: 1rem 1.5rem;
+    z-index: 999;
+  }
+
+  .lp-nav.open {
+    display: block;
+  }
+
+  .lp-nav ul {
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .lp-btn-signup {
+    display: none;
+  }
+}
