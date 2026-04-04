@@ -20,6 +20,13 @@
                     <li><a href="<?= URLROOT; ?>/home">Home</a></li>
                     <li><a href="<?= URLROOT; ?>/features">Features</a></li>
                     <li><a href="<?= URLROOT; ?>/contact">Contact</a></li>
+                    <?php if(isset($_SESSION['user_id'])) : ?>
+                        <li><a href="#">Welcome, <?= $_SESSION['user_name']; ?></a></li>
+                        <li><a href="<?= URLROOT; ?>/users/logout">Logout</a></li>
+                    <?php else : ?>
+                        <li><a href="<?= URLROOT; ?>/users/login">Login</a></li>
+                        <li><a href="<?= URLROOT; ?>/users/register">Register</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
