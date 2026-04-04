@@ -16,6 +16,21 @@ class User {
         return $row;
     }
 
+    // Find user by email
+    public function findUserByEmail($email){
+        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        // Check row
+        if($this->db->rowCount() > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Example secure login function using password_verify()
     public function login($email, $password){
         $this->db->query('SELECT * FROM users WHERE email = :email');
