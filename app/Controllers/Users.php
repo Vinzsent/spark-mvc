@@ -129,6 +129,7 @@ class Users extends Controller {
             if(empty($data['email_err']) && empty($data['password_err'])){
                 // Validated
                 // Check and set logged in user
+                // Check and set logged in user
                 $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
                 if($loggedInUser){
@@ -162,14 +163,70 @@ class Users extends Controller {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_name'] = $user->name;
-        redirect('home');
+        $_SESSION['user_role'] = $user->role;
+        redirect('dashboard');
     }
 
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_name']);
+        unset($_SESSION['user_role']);
         session_destroy();
         redirect('users/login');
+    }
+
+    public function profile(){
+        if(!isset($_SESSION['user_id'])){
+            redirect('users/login');
+        }
+
+        $user = $this->userModel->getUserById($_SESSION['user_id']);
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'id' => $_SESSION['user_id'],
+                'name' => trim($_POST['name']),
+                'email' => trim($_POST['email']),
+                'name_err' => '',
+                'email_err' => '',
+                'status' => ''
+            ];
+
+            // Validate
+            if(empty($data['name'])){
+                $data['name_err'] = 'Please enter name';
+            }
+            if(empty($data['email'])){
+                $data['email_err'] = 'Please enter email';
+            }
+
+            if(empty($data['name_err']) && empty($data['email_err'])){
+                if($this->userModel->updateProfile($data)){
+                    $_SESSION['user_name'] = $data['name'];
+                    $_SESSION['user_email'] = $data['email'];
+                    flash('profile_message', 'Profile updated successfully');
+                    redirect('users/profile');
+                } else {
+                    die('Something went wrong');
+                }
+            }
+
+            $this->view('users/profile', $data);
+
+        } else {
+            $data = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'name_err' => '',
+                'email_err' => '',
+                'status' => ''
+            ];
+
+            $this->view('users/profile', $data);
+        }
     }
 }
