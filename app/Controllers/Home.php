@@ -12,6 +12,10 @@ class Home extends Controller {
      * the landing page has its own custom navbar and layout.
      */
     public function index() {
+        if(isset($_SESSION['user_id'])){
+            redirect('dashboard');
+        }
+        
         $data = [
             'title'       => 'Spark Mobile',
             'description' => 'Delivering Car Wash right from your doorstep',
