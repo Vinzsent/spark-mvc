@@ -7,7 +7,7 @@ class User {
     }
 
     // Example of a secure method using PDO prepared statements against SQL injection
-    public function findUserById($id){
+    public function getUserById($id){
         $this->db->query('SELECT * FROM users WHERE id = :id');
         $this->db->bind(':id', $id);
 
@@ -56,10 +56,25 @@ class User {
         // Hash the password
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        $this->db->query('INSERT INTO users (name, email, password) VALUES(:name, :email, :password)');
+        $this->db->query('INSERT INTO users (name, email, password, role) VALUES(:name, :email, :password, :role)');
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
+        $this->db->bind(':role', 'user'); // Default role
+
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Update Profile
+    public function updateProfile($data){
+        $this->db->query('UPDATE users SET name = :name, email = :email WHERE id = :id');
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':id', $data['id']);
 
         if($this->db->execute()){
             return true;
